@@ -1,0 +1,5 @@
+{
+  "name": "GeoTIFF to Therion Converter",
+  "description": "A web application to convert GeoTIFF (.tif + .tfw) files into the Therion surface data format (.th2 + .txt). Upload your files to generate the corresponding Therion surface files.",
+  "requestFramePermissions": []
+}
