@@ -4,6 +4,7 @@ import { FileInput } from './components/FileInput';
 import { ResultDisplay } from './components/ResultDisplay';
 import { LoadingSpinner } from './components/Icons';
 import { PreviewAndSettings } from './components/PreviewAndSettings';
+import { useTranslation } from './LanguageContext';
 
 // Module-level cache for the GeoTIFF library
 let geoTiffModule: any = null;
@@ -27,6 +28,7 @@ const loadGeoTIFF = async (): Promise<any> => {
 
 
 const App: React.FC = () => {
+    const { t, language, setLanguage } = useTranslation();
     const [tifFile, setTifFile] = useState<File | null>(null);
     const [tfwFile, setTfwFile] = useState<File | null>(null);
     const [therionData, setTherionData] = useState<TherionData | null>(null);
@@ -259,7 +261,7 @@ endsurface
         }
     }, [parsedInfo, resampleFactor, coordinateSystem, debugLog]);
 
-    const handleReset = () => {
+    const handleReset = useCallback(() => {
         setTifFile(null);
         setTfwFile(null);
         setTherionData(null);
@@ -270,6 +272,15 @@ endsurface
         setParsedInfo(null);
         setCoordinateSystem('ijtsk');
         setDebugLog('');
+    }, []);
+
+    const handleFilesSelect = (tif: File, tfw: File) => {
+        setTifFile(tif);
+        setTfwFile(tfw);
+    };
+
+    const toggleLanguage = () => {
+        setLanguage(language === 'sk' ? 'en' : 'sk');
     };
 
     const renderContent = () => {
@@ -277,29 +288,19 @@ endsurface
             return (
                 <div className="flex flex-col items-center justify-center h-48 text-gray-400">
                     <LoadingSpinner />
-                    <span className="mt-4">Parsing files...</span>
+                    <span className="mt-4">{t('parsing')}</span>
                 </div>
             )
         }
         switch(view) {
             case 'upload':
                 return (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <FileInput
-                            id="tif-upload"
-                            label="GeoTIFF Image (.tif)"
-                            onFileSelect={setTifFile}
-                            file={tifFile}
-                            acceptedTypes=".tif,.tiff"
-                        />
-                        <FileInput
-                            id="tfw-upload"
-                            label="World File (.tfw)"
-                            onFileSelect={setTfwFile}
-                            file={tfwFile}
-                            acceptedTypes=".tfw"
-                        />
-                    </div>
+                    <FileInput
+                        onFilesSelect={handleFilesSelect}
+                        onReset={handleReset}
+                        files={{ tif: tifFile, tfw: tfwFile }}
+                        setError={setError}
+                    />
                 );
             case 'preview':
                 if (parsedInfo) {
@@ -329,24 +330,27 @@ endsurface
             <div className="w-full max-w-5xl mx-auto">
                 <header className="text-center mb-8">
                     <h1 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
-                        GeoTIFF to Therion Converter
+                        {t('appTitle')}
                     </h1>
                     <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
-                        Convert geospatial elevation data (.tif + .tfw) into Therion's surface format (.th + .txt) seamlessly in your browser.
+                        {t('appDescription')}
                     </p>
                 </header>
 
                 <main className="bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-8 min-h-[250px] flex flex-col justify-center">
                      {error && (
                         <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-center">
-                            <span className="font-semibold">Error:</span> {error}
+                            <span className="font-semibold">{t('errorPrefix')}</span> {error}
                         </div>
                     )}
                     
                     {renderContent()}
                 </main>
                  <footer className="text-center mt-8 text-gray-500 text-sm">
-                    <p>Designed for cave surveyors and geology enthusiasts.</p>
+                    <p>{t('footerText')}</p>
+                    <button onClick={toggleLanguage} className="mt-2 text-teal-400 hover:text-teal-300 underline">
+                        {language === 'sk' ? t('switchToEN') : t('switchToSK')}
+                    </button>
                 </footer>
             </div>
         </div>

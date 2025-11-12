@@ -46,6 +46,36 @@ A modern, in-browser tool to convert geospatial elevation data (GeoTIFF) into Th
 
 ---
 
+## 💾 Acquiring Data / Získanie Dát
+
+### English
+Digital Terrain Model (DMR 5.0) data for Slovakia can be downloaded from the official [ZBGIS Map Client](https://zbgis.skgeodesy.sk/mapka/sk/teren?pos=48.893945,20.539978,17).
+
+To download data:
+1.  Open the [Map Client](https://zbgis.skgeodesy.sk/mapka/sk/teren?pos=48.893945,20.539978,17).
+2.  Find the area of interest.
+3.  Use the "Export" tool in the sidebar.
+4.  Select "Digitálny model reliéfu 5.0 (DMR 5.0)".
+5.  Choose your export format (GeoTIFF is recommended) and draw a polygon to select the area.
+6.  Download the generated `.tif` and `.tfw` files.
+
+For more information about ZBGIS, the official data source, visit the [GKU website](https://www.gku.sk/gku/produkty-sluzby/zbgis/).
+
+### Slovenský
+Digitálny model reliéfu (DMR 5.0) pre územie Slovenska je možné stiahnuť z oficiálneho [Mapového klienta ZBGIS](https://zbgis.skgeodesy.sk/mapka/sk/teren?pos=48.893945,20.539978,17).
+
+Postup pre stiahnutie dát:
+1.  Otvorte [Mapového klienta](https://zbgis.skgeodesy.sk/mapka/sk/teren?pos=48.893945,20.539978,17).
+2.  Nájdite si záujmové územie.
+3.  V bočnom paneli použite nástroj "Export".
+4.  Zvoľte vrstvu "Digitálny model reliéfu 5.0 (DMR 5.0)".
+5.  Vyberte formát exportu (odporúča sa GeoTIFF) a nakreslite polygón pre výber územia.
+6.  Stiahnite vygenerované súbory `.tif` a `.tfw`.
+
+Viac informácií o ZBGIS, oficiálnom zdroji dát, nájdete na [stránke GKÚ](https://www.gku.sk/gku/produkty-sluzby/zbgis/).
+
+---
+
 ##  örnek / Example
 
 Here is an example of converting a Slovak Digital Terrain Model (DMR 5.0) dataset.
